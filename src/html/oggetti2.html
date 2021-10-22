@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+   <style media="screen">
+      h3 {
+         font-weight: normal
+      }
+   </style>
+   <meta charset="utf-8">
+   <title></title>
+   <script type="text/javascript">
+
+      document.addEventListener('DOMContentLoaded', function () {
+         let nomeProprieta = "eta";
+         let nomeProprieta2 = 1;
+         //questa non chiama il costruttore. Istanza di Object creata senza chiamare il costruttore
+         //Object literal notation
+         let persona ={
+            name:"Antonio",
+            [nomeProprieta] : 46,
+            [nomeProprieta2] : "Vincitore",
+            saluta(){ //sintassi nuova di ES6
+               return `Sono ${this.name} di anni ${this.eta} , il ${this[1]}. Ciao`;
+            }
+         }
+
+         Object.defineProperty(persona,"lavoro",{
+            value:"informatico",
+            //enumerable:true  di default con questo metodo crea proprietà non enumerabili
+         })
+
+         //in prop hai solo le proprietà enumerabili
+         for(const propr in persona){
+            console.log("proprieta:", propr," valore:",persona[propr]);
+         }
+
+         //Torna sia le proprietà enumerabili che non
+         for(const pr of Object.getOwnPropertyNames(persona) ){
+            console.log("proprieta:", pr, " valore:", persona[pr]);
+         }
+         //Nel codice commentato lo stesso oggetto di sopra con la sintassi di ES5 per
+         //definire le proprietà che sono metodi.
+         //Nota che è equivalente a quella sopra
+         /* let persona = {
+            name: "Antonio",
+            [nomeProprieta]: 46,
+            [nomeProprieta2]: "Vincitore",
+            saluta: function {  //sintassi vecchia fino ad ES5
+               return `Sono ${this.name} di anni ${this.eta} , il ${this[1]}. Ciao`;
+            }
+         } */
+         
+
+         document.getElementById('button').onclick = function () {
+            document.getElementById('cruscotto').innerHTML =
+               `<div>Ciao, mi chiamo ${persona.name}<div>`
+
+            document.getElementById('cruscotto').appendChild(document.createTextNode(persona.saluta()));
+         }
+      })
+
+
+   </script>
+</head>
+
+<body>
+   <h2>OOP - La direttiva NEW</h2>
+   <div class="" id="cruscotto"></div>
+   <button type="button" id="button">Mostra</button>
+</body>
+
+</html>

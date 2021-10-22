@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Prototipo</title>
+</head>
+<body>
+   <script>
+      function Persona(nome, eta, lavoro) {
+            this.nome = nome;
+            this.eta = eta;
+            this.lavoro = lavoro;
+
+            
+         }
+
+         /*Persona.prototype è un oggetto, un'istanza di Object. Hai 3 oggetti distinti, la funzione
+           costruttore Persona, l'oggetto puntato da this, e il prototipo Persona.prototype
+           Il prototipo viene creato nel momento che crei la funzione costruttore Persona.
+           Ogni costruttore è un oggetto e può avere delle proprietà. una di queste è prototype.
+           Persona.prototype punta al prototipo. A sua volta il prototipo tra le altre ha una
+           proprietà constructor che punta al costruttore per cui Persona.prototype.constructor==Persona
+          
+           L'istanza di Persona creata con new puntata da this ha una proprietà __proto__ che non è
+           standard che punta a Person.prototype cioè il prototipo.
+
+           Il prototipo a sua volta è un'istanza di Object e come tale ha una proprietà __proto__
+           che punta a Object.prototype (Object è un altra funzione costruttore quindi).
+
+           Quindi risalendo __proto__ l'istanza di Persona puntata da this è in grado di arrivare
+           ad Object.prototype dove ci sono i metodi di Object che tutti gli oggetti ereditano.
+
+           Nota inoltre che il prototipo è condiviso da tutte le istanze e quindi ciò che definisci
+           lì è condiviso.
+           */
+         Persona.prototype.sayNome=function () {
+               console.log(this.nome);
+         }
+
+         const persona1 = new Persona("Luca", "Toni", "opinionista");
+         const persona2 = new Persona("Matteo", "Renzi", "politico");
+
+         persona1.sayNome();
+         persona2.sayNome();
+   </script>
+</body>
+</html>

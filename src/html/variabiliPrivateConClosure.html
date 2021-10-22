@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <script>
+      /*Tramite la closure creando delle variabili locali nel costruttore riesco a creare dei
+        membri privati sia funzioni che variabili.
+
+        Tuttavia devo creare una funzione sull'istanza per ogni oggetto. QUindi pattern non efficiente.
+        */
+
+      function MyObject(nome){
+         let privateVariable = 10;
+
+         function privateFunction(){
+            return false;
+         }
+
+         this.publicMethod = function(){
+            privateVariable++;
+            return privateFunction();
+         }
+
+      }
+   </script>
+</body>
+</html>

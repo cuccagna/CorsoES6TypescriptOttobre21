@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Polimorfismo</title>
+
+   <script src="../js/polimorfismo.js"></script>
+   <script>
+      const figures = [];
+      let tr1 = new Triangolo(5,2);
+      let c1  = new Circle(2);
+
+      figures.push(tr1);
+      figures.push(c1);
+      
+
+/*       Il polimorfismo consiste nel potere chiamare lo stess metodo su oggetti diversi. è possibile
+      mettere nell stesso array oggetti di classi diverse che hanno come denominatore comune la 
+      classe da cui ereditano: questa cosa è meno evidente in JS perchè in un array posso mettere
+      oggetti eterogenei invece in altri linguaggi non posso mettere oggetti di classi diverse. E 
+      senza dovere appurare il tipo dinamicamente posso andare a chiamare il metodo comune.
+ */      for(const fig of figures)
+         console.log(fig.calcolaArea());
+
+      // console.log(tr1.calcolaArea());
+      // console.log(c1.calcolaArea());
+   </script>
+</head>
+<body>
+   
+</body>
+</html>

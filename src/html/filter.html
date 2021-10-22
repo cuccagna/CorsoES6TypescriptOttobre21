@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Filter</title>
+</head>
+<body>
+   <h1>FILTER</h1>
+   <script>
+      //Questi sono i dati
+      let cities = [
+            { name: 'Los Angeles', population: 3792621 },
+            { name: 'New York', population: 8175133 },
+            { name: 'Chicago', population: 2695598 },
+            { name: 'Houston', population: 2099451 },
+            { name: 'Philadelphia', population: 1526006 }
+         ];
+
+         //Adesso vogliamo filtrare questi dati tornando solo le città che hanno più di 3000000 di persone
+         //filter può fare questo.
+         //Questo è il modo vecchio di procedere
+         let bigCities = [];
+            for (let i = 0; i < cities.length; i++) {
+               if (cities[i].population > 3000000) {
+                  bigCities.push(cities[i]);
+               }
+            }
+            console.log(bigCities);
+
+            //Filtra gli item dell'array tornando solo quelli per i quali la callback torna un
+            //valore veri
+            let bigCitiesFilter = cities.filter(city =>
+                  city.population > 3000000
+               );
+               console.log(bigCitiesFilter);
+   </script>
+</body>
+</html>

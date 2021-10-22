@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Closure</title>
+
+   <h1>Closure</h1>
+   <script>
+      /* In Javascript è possibile dichiarare una funzione dentro un'altra. La funzione più 
+      interna non sarà visibile se non dentro a quella più esterna (a meno che quella più
+      interna viene tornata).
+
+      La closure non è altro il fatto che una funzione annidata ha sempre accesso alle variabili 
+      ed ai parametri della sua funzione esterna, anche dopo che la funzione esterna ha 
+      terminato la sua esecuzione */
+
+      /*Ogni nuova chiamata della funzione esterna cioè di createCounter() crea una nuova variabile 
+       counter e quindi un nuovo legame con la funzione interna reinizializzando counter.
+       Invece più chiamate della funzione più interna modificano la stessa variabile counter.
+       */
+      function createCounter(){ //funzione esterna
+         let counter = 2;
+         const myFunction = function(){//funzione interna, ha accesso alle variabili locali di quella interna anche quando viene tornata
+            counter = counter + 1;
+            return counter;
+         }
+
+         return myFunction;
+      }
+
+      
+      let increment1 = createCounter();
+      let c1 = increment1();
+      console.log(c1); //Stampa 3
+
+      //ARGOMENTI AVANZATI IN QUESTO COMMENTO CHE NON E' NECESSARIO SAPERE
+      //Quando richiamo createCounter()  un nuovo V.O viene creato cioè la modifica di counter a 3 qui non c'è,
+      //qui counter sarà ancora al valore originale 2. Cioè ogni volta che chiamo la funzione più esterna le sue
+      //variabili locali (cui la funzione più interna si legherà) sono al valore originale
+      //Questo perchè le funzioni interne a una esterna quando tornate, si memorizzano tutta "la scope chain"
+      //Quando viene richiamata la funzione più esterna per quella più interna si creerà una nuova scope chain
+      //e un nuovo V.O. per la funzione più esterna (cioè le modifiche precedenti non saranno visibili)
+      //La closure, o chiusura lessicale si riferisce al fatto che la funzione più interna vede le variabili della funzione
+      //più esterna anche dopo che quest ultima ha terminato perchè le ha memorizzate appresso con sè. Il termine lessicale
+      //si riferisce a questo scope "geografico" dalla funzione interna verso verso quella più esterna.
+      let increment2 = createCounter();
+      let c2 = increment2();
+      console.log(c2); //Stampa di nuovo 3, cioè counter era a 2  e non vede la modifica prededente
+
+      //Qui invece richiamo la funzione increment1() che già mi ero fatto tornare in precedenza e che già avevo chiamato in
+      //precedenza. Questa si era legata alla variabile counter e dopo la prima chiamata della funzione counter è diventata 3.
+      //Adesso è rimasta legata alla stessa variabile. Quindi agirà sulla stessa variabile che avrà valore 3
+      let c1_2 = increment1();
+      console.log(c1_2); //stampa 4
+
+
+      /*CLOSURE AND THIS*/
+      window.identita = "WINDOW";
+
+      let oggetto={
+         identita: "MIO OGGETTO",
+         getIdentitaFun(){
+            return function(){
+               return this.identita;
+            }
+         }
+      }
+
+      //Perchè stampa "WINDOW" ?
+      console.log(oggetto.getIdentitaFun()());
+     /*  Qui la closure non si applica perchè il valore di this del contesto più esterno non è visiile mai in quello
+      più interno a differenza delle variabili locali quindi "this" assumerà un valore dinamico in base a dove viene eseguito.
+      Si ha che la prima parte della chiamata cioè oggetto.getIdentitaFun() torna la funzione anonima che poi con le altre parentesi
+      verrà eseguita e siccome viene eseguita nel contesto globale avrà l'oggetto globale window come valore per this (a meno che non sei
+      in strict mode , in quel caso this vale undefined e un errore sarà sollevato) */
+
+      /*Puoi usare la closure in questo modo per porre rimedio*/
+      let oggetto2 = {
+            identita: "MIO OGGETTO",
+            getIdentitaFun() {
+               let self = this; //qui this è l'oggetto chiamante cioè oggetto2
+               return function () {
+                  return self.identita;
+               }
+            }
+         }
+
+         //Qui stampa MIO OGGETTO
+      console.log(oggetto2.getIdentitaFun()());
+
+      //Un'altra maniera ancora è usare l'arrow function che non lega this dinamicamente ma lessicalmente cioè al valore di this
+      //nel contesto che racchiude l'arrow function (cioè oggetto3 in questo caso)
+      let oggetto3 = {
+            identita: "MIO OGGETTO",
+            getIdentitaFun() {
+               return () => this.identita;
+            }
+         }
+
+         console.log(oggetto2.getIdentitaFun()());
+
+      
+      function Regina(nome){
+         this.nome = nome;
+
+         setTimeout(function(){console.log("Il nome della regina è: ",this.nome)},1000);
+      }
+
+      let reginaInghilterra = new Regina('Elizabeth');
+      /* Il codice sopra stamperà undefined perchè la setTimeout è codice asincrono la cui callback sarà eseguita
+      dopo tutto il resto del codice sincrono nel contesto globale dove this vale window (tranne in strict mode dove vale undefined)
+      e su window la proprietà nome non c'è quindi sarà undefined */
+
+      /*Risolvo con la closure*/
+      function ReginaClosure(nome){
+         this.nome = nome;
+
+         let that = this;
+         setTimeout(function(){console.log("Il nome della regina è: ",that.nome)},1000);
+         
+      }
+
+      let reginaInghilterraClosure = new ReginaClosure('Elizabeth');
+
+      /*Oppure con una arrow function*/
+      function ReginaArrow(nome) {
+            this.nome = nome;
+
+            setTimeout( ()=> { console.log("Il nome della regina è: ", this.nome)} , 1000);
+
+         }
+
+         let reginaInghilterraArrow = new ReginaArrow('Elizabeth');
+   </script>
+</head>
+<body>
+   
+</body>
+</html>

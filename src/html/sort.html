@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sort</title>
+</head>
+<body>
+   <script>
+      //sort() ordina in maniera ascendente
+      //Tuttavia è case-sensitive quindi Break ha la B maiuscola che in Unicode è più piccolo
+      //Nota che sort() è distruttivo cioè modifica l'array su cui agisce.
+      let parole= ['Break', 'china','alphabet'];
+      console.log("Array originale: ",parole);
+      parole.sort();
+      console.log("Array dopo avere chiamato sort: ",parole);
+
+      //Non funziona coi numeri perchè dietro le quinte sort() chiama String() su ogni elemento dell'array
+      //quindi
+      let numeri = [0,1,5,10,15];
+      console.log("Array numeri originale: ", numeri);
+      numeri.sort();
+         console.log("Array numeri dopo avere chiamato sort: ", numeri);
+
+      //Allora puoi passare una CALLBACK a sort()
+      //Se viene fornita una funzione compara(a,b) l'array viene ordinato in base al valore restituito dalla
+      //funzione di confronto.
+      //Se compara(a,b)<0 posiziona a in un indice inferiore di b
+      //Se compara(a,b)>0 posiziona b in un indice inferiore di a
+      //Se compara(a, b) == 0 posiziona a e b invariati rispetto a come sono. è STABILE da ES8 in poi
+      function compara(value1,value2){
+         if(value1<value2)
+            return -1;
+         else if(value1>value2)
+            return 1;
+         else
+            return 0;
+      }
+
+         let numeriAgain = [0, 1, 5, 10, 15];
+         console.log("Array numeri originale: ", numeriAgain);
+         numeriAgain.sort(compara);
+         console.log("Array numeri dopo avere chiamato sort con funzione confronto: ", numeriAgain);
+
+      
+    /*Se hai degli array di oggetti e vuoi ordinare in base a una specifica proprietà
+    nella funzione di comparazione dovrai assumere che value1 e value2 sono oggetti e fare
+    if(value1.nomeproprieta<value2.nomeproprieta)  ecc.  */
+   </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Arrow functions</title>
+</head>
+<body>
+   
+   <button id="arrow1">Chiama Arrow Function 1</button>
+   
+   <p>
+      <label>Città: </label>
+      <input type="text" id="citta">
+      <button id="arrow2">Chiama Arrow Function 2</button>
+   </p>
+   <script>
+      
+
+      /* Qui ()=>{}
+      è un'abbreviazione della funzione anonima
+      function(){
+         alert("Arrow function chiamata");
+      } */
+
+      
+
+      let visualizzaAlert = ()=>
+      {
+         alert("Arrow function 1 chiamata");
+      }
+
+
+      //Fai visualizzaAlert() per chiamarla esplicitamente
+      document.querySelector("#arrow1").onclick = visualizzaAlert;
+
+      //Quando c'è un solo parametro le parentesi rotonde possono essere omesse
+      //Equivale a 
+       /* document.querySelector("#arrow2").onclick = function(event) => {
+            const citta = document.querySelector("#citta").value;
+            alert(`Arrow function 2 chiamata da ${citta}`);
+         }; */
+
+      document.querySelector("#arrow2").onclick = event=>
+      {
+         const citta = document.querySelector("#citta").value;
+         alert(`Arrow function 2 chiamata da ${citta}`);
+      };
+
+      //Se ometti le parentesi graffe vuol dire che il valore (in questo caso num+10)
+      //sarà implicitamente ritornato. In questo caso puoi avere solo una singola linea di codice
+      //NOTA anche che NON PUOI ANDARE ACCAPO PRIMA DI =>
+      let incrementa10 = num =>
+                           num+10;
+
+      let risultato=incrementa10(5)
+      console.log(risultato);
+
+      //NON PUOI USARE ,perchè non esiste, arguments in una arrow function
+
+      //Differenza tra ARROW FUNCTION E FUNZIONE NORMALE E' nel comportamento di this
+      //Esempio più avanti.
+   </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <script>
+      /* Variabili private definite in questo modo supportate 
+      solo nei più recenti browser */
+      class Animale{
+         #colore; //sintassi per variabili private
+         #zampe; //sinatssi per variabili private
+
+         constructor(colore,zampe){
+            this.#colore = colore;
+            this.#zampe = zampe;
+         }
+
+         getZampe(){
+            return this.#zampe;
+         }
+
+         setZampe(numZampe){
+            if(numZampe<=0)
+               throw new Error("Numero di zampe errato")
+            
+            this.#zampe = numZampe;
+         }
+      }
+
+      let tigre = new Animale("bianca",4)
+      //Questo da errore perchè è una variabile privata
+      //console.log(tigre.#colore);
+      this.setZampe(3);
+      console.log(this.getZampe());
+   </script>
+</body>
+</html>

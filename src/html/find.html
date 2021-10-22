@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Trova Città</title>
+
+   <style>
+      .cardCity{
+         width:200px;
+         height:200px;
+         border: 1px solid cadetblue;
+         display:inline-block;
+         border-radius:0.1em;
+         margin-right: 0.5em;
+         margin-bottom:0.5em;
+         box-shadow: 0 0 3px cadetblue;
+      }
+
+      h3{
+         text-align:center;
+      }
+
+      #container img{
+         width:200px;
+         height:140px;
+         object-fit:cover;
+         
+      }
+
+      fieldset{
+         border: 1px solid cadetblue;
+         width:300px;
+         margin-top:50px;
+      }
+
+      
+      #errore{
+         font-weight : bold;
+         background-color:red;
+         padding:0.5em;
+         width:fit-content;
+         margin-top:0.2em;
+         border-radius:0.2em;
+      }
+   </style>
+
+</head>
+<body>
+   <div id = "container"></div>
+   <form name="trovaCitta">
+      <fieldset>
+      <p>
+         <label for="citta">Città:</label></label><input type="text" name="citta" placeholder="Inserire città" id="citta">
+      </p>
+      <button type="submit">Vai alla città</button>
+      </fieldset>
+   </form>
+   <script>
+      let citta = [
+         {nome:"Napoli",
+          img:"../../multimedia/napoli.jpg"},
+          {
+            nome: "Roma",
+            img: "../../multimedia/roma.jpg"
+         },
+         {
+            nome: "Bari",
+            img: "../../multimedia/bari.jpg"
+         },
+         {
+            nome: "Palermo",
+            img: "../../multimedia/palermo.jpg"
+         },
+         {
+            nome: "Cagliari",
+            img: "../../multimedia/cagliari.jpg"
+         },
+         {
+            nome: "Milano",
+            img: "../../multimedia/milano.png"
+         },
+         {
+            nome: "Firenze",
+            img: "../../multimedia/firenze.jpg"
+         },
+      ]
+
+      
+
+      let contenuto="";
+      for(let city of citta){
+         contenuto += `
+            <div class="cardCity">
+               <h3>${city.nome}</h3>
+               <img src="${city.img}">
+            </div>
+         `
+      }
+
+      document.getElementById("container").innerHTML = contenuto;
+
+      let mioForm = document.forms["trovaCitta"];
+      mioForm.addEventListener("submit",function(event){
+         event.preventDefault();
+         let cittaInserita = mioForm.elements["citta"].value;
+         //console.log(cittaInserita)
+         const elementoMetchato = citta.find((item,indice)=>
+            item.nome.toLowerCase() == cittaInserita.toLowerCase()
+         )
+
+         console.log(elementoMetchato);
+         if(elementoMetchato === undefined){
+            
+            //getElementById torna null se l'elemento non esiste
+            //Questo controllo serve per non visualizzare un altro errore qualora
+            //il div errore faccia già parte del DOM
+            if(!document.getElementById("errore")){
+               let divError = document.createElement("div");
+               
+               document.body.appendChild(divError);
+               divError.id = "errore";
+               divError.textContent = "La città selezionata non è presente";
+            }
+            
+         }
+         else{
+            location.href = `https://www.comune.${elementoMetchato.nome.toLowerCase()}.it`;
+         }
+      })
+   </script>
+</body>
+</html>

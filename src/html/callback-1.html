@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+
+      function map(a,f){
+        /*
+        in queasta funzione vogliamo che il primo argomento sia un array
+        e che il secondo argomento sia a sua volta una funzione
+        (funzione di callback) che ci permette per esempio di fare un calcolo
+        (una somma, un prodotto, il calcolo del quadrato, etc) sugli elementi
+        dell'array
+        */
+        //Creo un array della dimensione di a
+        //Potrei anche crearlo vuoto e poi incrementarne la dimensione dinamicamente
+        //ma così è più efficiente
+        var result=new Array(a.length);
+        //ciclo sugli elementi dell'array a
+
+        //utilizziamo anche il concetto di let
+        //Maniera obsoleta di procedere. Puoi usare un forEach
+        /* for(let i=0; i<a.length;i++){
+          result[i] = f(a[i]);
+          } */
+
+          a.forEach(function(item,indice){
+            result[indice] = f(item);
+          })
+          
+
+          return result
+        }//fine
+
+        //Supponiamo che gli alementi dell'array siano i lati di 4 quadrati
+        //voglio calcolare l'area dei quadrati (lato * lato)
+        var A = map([1,2,3,4], function(x){
+              return x*x//restituisce il valore dell'area dei singoli quadrati
+        })
+
+        console.log(A)
+
+        //Supponiamo che gli alementi dell'array siano i raggi di 4 cerchi
+        //voglio calcolare l'area dei cerchi (raggio * raggio per pigreco)
+
+        const PI = 3.141592653 //la costante è immutabile
+        var AreaCerchi = map([1,2,3,4], function(x){
+              return x*x*PI//restituisce il valore dell'area dei singoli cerchi
+        })
+
+        //PI = 0 errore perchè una costante è immutabile
+        console.log(AreaCerchi)
+
+    </script>
+  </head>
+  <body>
+    <h3>Funzioni passate come argomento di altre funzioni</h3>
+  </body>
+</html>

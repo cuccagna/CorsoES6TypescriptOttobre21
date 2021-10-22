@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Ricorsione 1</title>
+</head>
+<body>
+   <script>
+      function factorial(n) {
+            if (n === 0) //caso base
+               return 1;
+            return n * factorial(n - 1);
+         }
+
+         //Questo fa il prodotto degli elementi dell'array
+         //Si assume che l'array non contenga altri array ma
+         //contenga solo numeri
+
+         //slice è una funzione che fa una copia (una shallow copy in realtà)
+         //dell'array chiamante cioè se
+         //array=[3 4 5]
+         //array.slice(1)  torna [4 5] e sarà una copia dell'originale
+         //Il parametro che prende indica l'indice a partire da cui fare la copia
+         //Un eventuale opzionale secondo parametro è l'indice della posizione finale
+         //da includere -1  cioè
+         //let a = [1 87 83 2 5 7 3]
+         //a.slice(2,5) torna [83 2 5]
+         //slice(0) e slice() senza argomenti fanno una copia dell'intero array
+         function productOfArray(array) {
+            if (array.length === 0)
+               return 0;
+            if (array.length === 1)
+               return array[0];
+
+            return array[0] * productOfArray(array.slice(1));
+         }
+
+         console.log(factorial(4));
+      console.log(productOfArray([1,2,3]));
+      console.log(productOfArray([1,2,3,10]));
+      
+   </script>
+</body>
+</html>

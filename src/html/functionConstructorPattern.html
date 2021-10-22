@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Function constructor Pattern</title>
+</head>
+<body>
+   <h1>Function constructor Pattern</h1>
+   <script>
+      //Questo è un costruttore. è una normale funzione ma per indicare che viene usata come un 
+      //costruttore si usa l'iniziale maiuscola per il nome.
+      //A parte questa differenza l'unica altra grande differenza con una funzione normale è 
+      //il modo con cui viene invocata: quando è chiamata con new viene creato un oggetto dietro 
+      //le quinte che sarà puntato da this.
+      //this sarà implicitamente tornato dal costruttore a meno che non c'è un return esplicito
+      //da dentro il costruttore.
+      //con this.nome stai attaccando la proprietà nome a questo oggetto
+   
+      
+      /*DIFETTO
+       Per le proprietà che puntano a funzioni (che sono oggetti e sono "pesanti") una nuova
+       funzione viene creata per ogni oggetto
+       */
+      function Persona(nome,eta,lavoro){
+         this.nome = nome;
+         this.eta = eta;
+         this.lavoro = lavoro;
+
+         this.sayNome = function(){
+            console.log(this.nome);
+         }
+      }
+
+      const persona1 = new Persona("Luca","Toni","opinionista");
+      const persona2 = new Persona("Matteo", "Renzi", "politico");
+
+      persona1.sayNome();
+      persona2.sayNome();
+
+   </script>
+</body>
+</html>

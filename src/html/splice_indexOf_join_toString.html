@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Miscellanea</title>
+</head>
+<body>
+   <h1>Splice indexOf join toString</h1>
+
+   <script>
+      /* SPLICE:
+      1.Deletion 
+       primo parametro è la posizione del primo item da eliminare. 
+       secondo parametro è il numero di items da eliminare
+      
+      2.Insertion 
+         primo parametro è la posizione eliminare
+         secondo parametro è il numero di items da eliminare, quindi 0 per solo inserimento
+         altri parametri sono gli item da inserire
+         Esempio splice(2,0,"red","green") inserisce "red" all'indice 2 e "green" all'indice 3 
+         Quello che c'era all'indice 2 viene slittato all'indice 4 e così via per gli altri valori
+
+      3. Replacement
+         Stessa sintassi di Insertion ma invece di 0 specificare il numero di item da eliminare
+
+      Questo metodo RITORNA l'array con gli item rimossi dall'array o l'array vuoto se nessun
+      item è stato rimosso
+
+      E' distruttivo cioè modifica l'array di partenza
+      */
+
+      let colors = ["red","green","blue"];
+      let removed = colors.splice(0,1);
+      alert("colors: "+ colors); //["green","blue"];
+      alert("removed: "+removed)//["red"]
+
+      
+      removed = colors.splice(1,0,"yellow","orange");
+      alert("colors: "+colors); //["green","yellow","orange", "blue"];
+      alert("removed: " +removed); //[] nessun elemento rimosso
+
+      removed = colors.splice(1, 1, "red", "purple"); //inserisce due valori e ne rimuove 1
+      alert("colors: " + colors); //["green","red","purple","orange", "blue"];
+      alert("removed: " + removed); //["yellow"] 
+
+      /*--------------------------------------------------------------------------------
+      INDEXOF  
+      Torna l'indice dell'elemento che si sta cercando oppure -1 se l'elemento non esiste
+      Scorre l'array in cerca dell'elemento da sinistra verso destra
+      1° parametro L'elemento da cercare
+      2° parametro (opzionale) è l'indice da cui iniziare la ricerca
+      */
+
+      let numbers = [35 ,7, 3.5, -3,  32 ,7,11];
+      console.log(numbers.indexOf(7)); //1
+      console.log(numbers.indexOf(7,4)); // inizia la ricerca di 7 dall'indice 4. Torna 5
+
+      /* indexOf dietro le quinte effettua un confronto usando l'operatore di stretta eguaglianza
+      === su oggetti restituisce true solo se puntano alla stessa zona di memoria.
+      Guarda questo esempio */
+
+      const persona1={nome:"Mario"};
+      const persona2 = { nome: "Mario" };
+      const persona3 = { nome: "Genoveffa" };
+      
+      const persone =[persona2,persona3];
+      console.log(persone.indexOf(persona1));//Torna -1 cioè l'elemento non c'è perchè persona1 e persona2 sono due oggetti diversi con indirizzi diversi per i quali === torna false
+   
+      //esiste lastIndexOf che fa la ricerca partendo da destra e andando verso sinistra
+   //---------------------------------------------------------------------
+   //toString su un array.
+      let numeriProgressivi = [1,2,3,4];
+      //Converte array in stringa in quel particolare valore "1,2,3,4"
+      console.log(numeriProgressivi.toString()); //"1,2,3,4"
+
+   //Altro modo per convertire da array a stringa è JOIN
+   console.log(numeriProgressivi.join("$")); //tra parentesi il separatore che sarà usato tra ogni item dell'array
+   console.log(numeriProgressivi.join());
+   </script>
+</body>
+</html>

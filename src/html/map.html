@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Map</title>
+</head>
+<body>
+   <canvas id="disegna" width="500" height="500" style="border:1px solid black">Canvas non supportato</canvas>
+   <div>
+      <button id="raddoppia">Raddoppia raggi</button>
+   </div>
+   <script>
+      let misureRaggi = [20,30,15,40];
+      const centri = [80, 80, 200, 200, 280, 280, 370, 370]
+
+      document.querySelector('#raddoppia').addEventListener("click",function(){
+         //Raddoppia i raggi
+         misureRaggi = misureRaggi.map((item)=>item*2)
+         this.disabled = true;
+         disegnaCerchi();
+      });
+
+      const drawing = document.getElementById("disegna");
+      let contesto;
+      if(drawing.getContext){
+         contesto = drawing.getContext("2d");
+         disegnaCerchi();
+      }
+
+      function disegnaCerchi(){
+         contesto.beginPath();
+         contesto.strokeStyle = "red";
+         contesto.fillStyle = "#0000ff";
+         misureRaggi.forEach((item,index)=>{
+            ////x,y,raggio,startAngle,endAngle,antiorario
+            //contesto.arc(80, 80, 20, 0, 2 * Math.PI, false);
+            contesto.arc(centri[index*2], centri[index * 2 +1], misureRaggi[index] , 0, 2 * Math.PI, false);
+            if(index>0)
+               contesto.moveTo(centri[index * 2], centri[index * 2 + 1]);
+         })
+         
+         
+         /* contesto.arc(200, 200, 30, 0, 2 * Math.PI, false);
+         contesto.moveTo(250, 250);
+         contesto.arc(250, 250, 14, 0, 2 * Math.PI, false);
+         contesto.moveTo(250, 250);
+         contesto.arc(350, 350, 40, 0, 2 * Math.PI, false); */
+         contesto.fill();
+      }
+   </script>
+</body>
+</html>

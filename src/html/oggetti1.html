@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+   <style media="screen">
+      h3 {
+         font-weight: normal
+      }
+   </style>
+   <meta charset="utf-8">
+   <title></title>
+   <script type="text/javascript">
+
+      document.addEventListener('DOMContentLoaded', function () {
+         let nomeProprieta = "eta";
+         let nomeProprieta2 = 1;
+         let persona = new Object(); //chiama il costruttore (è una funzione) di Object che torna un'istanza (di Object)
+         persona.name = "Antonio";
+         persona[nomeProprieta] = 46;
+         persona[nomeProprieta2] = "Vincitore";
+         persona.saluta = function(){
+            return `Sono ${this.name} di anni ${this.eta} , il ${this[1]}. Ciao`;
+         }
+
+         document.getElementById('button').onclick = function () {
+            document.getElementById('cruscotto').innerHTML =
+               `<div>Ciao, mi chiamo ${persona.name}<div>`
+
+          document.getElementById('cruscotto').appendChild(document.createTextNode(persona.saluta()));
+         }
+      })
+
+
+   </script>
+</head>
+
+<body>
+   <h2>OOP - La direttiva NEW</h2>
+   <div class="" id="cruscotto"></div>
+   <button type="button" id="button">Mostra</button>
+</body>
+
+</html>

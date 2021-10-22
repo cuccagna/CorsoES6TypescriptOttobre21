@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h3>L'oggetto arguments</h3>
+    <div class="">
+
+    </div>
+
+    <script type="text/javascript">
+      //L'oggetto arguments reppresenta i valori passati alla funzione
+      //anche se questa viene definita con 0 argomenti
+
+      //arguments è un array like object cioè è un oggetto particolare fatto così:
+      /*arguments={
+         0:1,
+      1:2,
+       2:10,
+      length:3} */
+      function func1(){
+        console.log(arguments)
+        //Faccio un ciclo sulle "componenti dell'oggetto arguments"
+        //arguments.length è il numero dei componenti dell'oggetto arguments
+        for(var i=0; i<arguments.length; i++){
+          console.log(arguments[i] * 2) 
+        }
+      }
+
+      func1(1,2,10) //2,4,6
+
+//=================================================
+
+/* 
+Cambiare arguments[1] ad esempio  cambia il secondo parametro */
+    function func2(num1,num2,num3){
+      arguments[1] =10; 
+      console.log(num2);
+      //num3 è undefined
+      var somma=0;
+      for(var i=0; i<arguments.length; i++){
+          somma=somma + arguments[i]
+      }
+      return somma
+    }
+    console.log(func2(2,3))
+
+    //Comportamenti diversi a seconda se i parametri sono 1 o 2
+    function overloadingSimulato(num1,num2){
+      if(arguments.length === 1)
+        console.log(num1+10);
+      else if(arguments.length === 2){
+        console.log(arguments[0] + num2);
+      }
+    }
+    </script>
+  </body>
+</html>

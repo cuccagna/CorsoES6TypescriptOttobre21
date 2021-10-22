@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Classi</title>
+</head>
+<body>
+   <script>
+      class Persona{
+         constructor(nome,cognome,eta){
+            //Proprietà sull istanza. Sono pubbliche
+            this.nome = nome;
+            this.cognome = cognome;
+            this.eta = eta;
+
+            Persona.numPersone++;
+         }
+
+         //viene definita sul prototipo
+         sayInfoPersona(){
+            return `Mi chiamo ${this.nome} ${this.cognome}  ed ho ${this.eta}`;
+         }
+
+         /*Metodo setter definito sul prototipo che viene chiamato quando si cerca di
+            accedere in scrittura sull'età. Il parametro è il valore che si sta cercando di
+            impostare e che tramite questo meccanismo riesco a validare*/
+         set eta(etaValue){
+            if(!Number.isInteger(etaValue) || etaValue<=0)
+               throw new Error("Si sta cercando di impostare un'eta scorretta");
+            
+            this.eta_ = etaValue; //Se non esiste viene creata la proprietà eta_ sull'istanza
+         }
+
+         /*getter definita sul prototipo chiamata quando viene acceduta in lettura la proprietà
+          eta di una qualunque istanza di Persona*/
+         get eta(){
+            return this.eta_;
+         }
+
+         /* Un metodo statico è associato, cioè sta dentro, il costruttore cioè l'oggetto Person in questo caso 
+         e viene usato per eseguire delle azioni che prescindono dalla creazione di un'istanza della classe.
+         Come ad esempio stampare il numero di persone che sono state create (ci deve essere una proprietà
+         statica già definita). Inoltre qui dentro this equivale al nome del costruttore/classe cioè 
+         Persona */
+         static stampaNumeroPersoneIstanziate(){
+            return `Sono state create finora ${this.numPersone}`;
+         }
+      }
+
+      Persona.numPersone = 0;
+      const persona1 = new Persona("Giuseppe","Grillo",57);
+      console.log(Persona.stampaNumeroPersoneIstanziate());
+      //const persona2 = new Persona("Marco", "Isidori", "gt"); Questo lancia un'eccezione
+      const persona2 = new Persona("Nicola", "De Gasperi", 91);
+      console.log(Persona.stampaNumeroPersoneIstanziate());
+      //persona2.eta=-10;  anche questo lancia un'eccezione
+      persona2.eta = 90;
+      console.log("Persona1: ",persona1);
+      console.log("Persona2: ", persona2);
+   </script>
+</body>
+</html>

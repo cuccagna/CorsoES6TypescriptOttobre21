@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title></title>
+</head>
+<body>
+   <script>
+      /* Qui il problema che vogliamo risolvere è ordinare un array di oggetti però non in base a una 
+      specifica proprietà ma in base ad una proprietà che decidiamo noi di volta in volta e che può 
+      cambiare e che decidiamo dall'esterno tramite un parametro.
+      Per raggiungere lo scopo usiamo una funzione che ritorna una funzione */
+
+      let dati =[
+         { nome : "Zacaria",eta: 28},
+         { nome: "Nicola", eta: 29 }
+      ]
+
+      function creaFunzioneComparazione(nomeProprieta){
+         return function(object1,object2){
+            let value1 = object1[nomeProprieta];
+            let value2 = object2[nomeProprieta];
+
+            if (value1 < value2)
+               return -1;
+            else if (value1 > value2)
+               return 1;
+            else
+               return 0;
+         }
+      }
+
+      dati.sort(creaFunzioneComparazione("nome"));
+      console.log(dati[0].nome); //Stampa prima Nicola perchè questo nome viene prima di Zacaria. cioè l'array è stato ordinato in maniera ascendente in base alla proprietà nome
+      dati.sort(creaFunzioneComparazione("eta"));
+      console.log(dati[0].nome);
+   </script>
+</body>
+</html>

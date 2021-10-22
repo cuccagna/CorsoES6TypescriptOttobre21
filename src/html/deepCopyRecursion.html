@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Deep copia ricorsiva</title>
+</head>
+<body>
+   <script>
+      const deepCopyFunction = (inObject) => {
+            let outObject, value, key
+
+            //necessario anche il controllo su null perchè typeof null è uguale ad 'object'
+            if (typeof inObject !== "object" || inObject === null) {
+               return inObject // Return the value if inObject is not an object
+            }
+
+            //Se sei qui sei sicuro di avere a che fare con un oggetto (e non null)
+
+            // Create an array or object to hold the values
+            outObject = Array.isArray(inObject) ? [] : {}
+
+            //il for in torna i nomi delle chiavi dell'oggetto
+            for (key in inObject) {
+               value = inObject[key]
+
+               // Recursively (deep) copy for nested objects, including arrays
+               outObject[key] = deepCopyFunction(value)
+            }
+
+            return outObject
+         }
+
+         let originalArray = [37, 3700, { hello: "world" }]
+         //Questo coi tre puntini si chiama spread operator e nel caso di una array
+         //torna i valori dell'array separati da virgola
+         console.log("Original array:", ...originalArray) // 37 3700 Object { hello: "world" }
+
+         let shallowCopiedArray = originalArray.slice() //slide fa una copia shallow, cioè per l'oggetto dentro l'array è solo copiato l'indirizzo in memoria quindi sia l'array originale che quello copiato avranno lo stesso oggetto
+         let deepCopiedArray = deepCopyFunction(originalArray) 
+
+         originalArray[1] = 0 // Will affect the original only
+         console.log(`originalArray[1] = 0 // Will affect the original only`)
+         originalArray[2].hello = "moon" // Will affect the original and the shallow copy
+         console.log(`originalArray[2].hello = "moon" // Will affect the original array and the shallow copy`)
+
+         console.log("Original array:", ...originalArray) // 37 0 Object { hello: "moon" }
+         console.log("Shallow copy:", ...shallowCopiedArray) // 37 3700 Object { hello: "moon" }
+         console.log("Deep copy:", ...deepCopiedArray) // 37 3700 Object { hello: "world" }
+      
+
+   </script>
+</body>
+</html>
